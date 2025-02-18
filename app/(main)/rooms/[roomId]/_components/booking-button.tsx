@@ -1,14 +1,20 @@
 "use client";
 
-import Button from "@/app/components/Button";
 import { useModalStore } from "@/hooks/use-modal-store";
+import Link from "next/link";
 import React from "react";
 
-const BookingButton = ({roomId}: {roomId: string}) => {
+const BookingButton = ({ roomId }: { roomId: string }) => {
   const { onOpen } = useModalStore();
 
   return (
-    <Button outline onClick={() => onOpen("CreateBooking", roomId)} label='Book' />
+    <Link
+      className="border rounded-md p-2 bg-neutral-200 hover:bg-neutral-300 transition-colors ease-in-out text-sm font-semibold"
+      href={`/rooms/${roomId}/booking/create`}
+      onClick={() => onOpen("CreateBooking", roomId)}
+    >
+        Make bookings
+    </Link>
   );
 };
 

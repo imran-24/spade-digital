@@ -16,16 +16,15 @@ const RoomFilter = ({
   uniqueAmenities,
 }: RoomFilterProps) => {
   return (
-    <div className='max-w-3xl mx-auto p-4 flex flex-wrap gap-6'>
-      <div className='flex-1 min-w-[200px]'>
-        <label className='block text-sm font-semibold text-gray-600 mb-2'>
+    <div className='flex justify-between gap-8 p-4'>
+      <div className=''>
+        <label className='block text-sm font-medium text-gray-700 mb-2'>
           Minimum Capacity
         </label>
         <select
           value={capacityFilter}
           onChange={(e) => setCapacityFilter(e.target.value)}
-          className='w-full px-4 py-2 rounded-lg border border-gray-200 bg-white shadow-sm 
-                hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all'
+          className='w-full rounded-md border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-1'
         >
           <option value=''>All</option>
           {[5, 10, 15, 20, 25].map((cap) => (
@@ -35,15 +34,14 @@ const RoomFilter = ({
           ))}
         </select>
       </div>
-      <div className='flex-1 min-w-[200px]'>
-        <label className='block text-sm font-semibold text-gray-600 mb-2'>
+      <div className=''>
+        <label className='block text-sm font-medium text-gray-700 mb-2'>
           Amenities
         </label>
         <select
           value={amenityFilter}
           onChange={(e) => setAmenityFilter(e.target.value)}
-          className='w-full px-4 py-2 rounded-lg border border-gray-200 bg-white shadow-sm 
-                hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all'
+          className='w-full rounded-md border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-1'
         >
           <option value=''>All</option>
           {uniqueAmenities.map((amenity) => (

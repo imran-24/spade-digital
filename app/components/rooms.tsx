@@ -50,10 +50,10 @@ const Rooms = ({ rooms }: RoomsWithBookingsProps) => {
       />
 
       <div className='bg-white rounded-lg shadow-sm'>
-        <div className='grid grid-cols-3 bg-gray-50 p-4 rounded-t-lg font-semibold'>
+        <div className='grid grid-cols-3 bg-gray-50 p-2 rounded-t-lg items-center justify-center font-semibold'>
           <div>Room Name</div>
-          <div className='text-center'>Available Slots</div>
-          <div className='text-center'>Actions</div>
+          <div className=''>Available Slots</div>
+          <div className=''>Actions</div>
         </div>
 
         <RoomList rooms={currentRooms} />

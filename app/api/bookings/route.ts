@@ -12,19 +12,19 @@ export async function POST(req: NextRequest) {
       await req.json();
 
     console.log(roomId, userId, title, description, startTime, endTime);  
-    const existingBooking = await prisma.booking.findFirst({
-      where: {
-        roomId,
-        OR: [{ startTime: { lte: endTime }, endTime: { gte: startTime } }],
-      },
-    });
+    // const existingBooking = await prisma.booking.findFirst({
+    //   where: {
+    //     roomId,
+    //     OR: [{ startTime: { lte: endTime }, endTime: { gte: startTime } }],
+    //   },
+    // });
 
-    if (existingBooking) {
-      return NextResponse.json(
-        { error: "Room already booked" },
-        { status: 400 }
-      );
-    }
+    // if (existingBooking) {
+    //   return NextResponse.json(
+    //     { error: "Room already booked" },
+    //     { status: 400 }
+    //   );
+    // }
 
     const booking = await prisma.booking.create({
       data: { roomId, userId, title, description, startTime, endTime },

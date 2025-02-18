@@ -1,4 +1,5 @@
 import prisma from "@/lib/prisma";
+import { getAuth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function PUT(req: NextRequest, { params }: { params: {id: string}}) {
@@ -31,7 +32,7 @@ export async function PUT(req: NextRequest, { params }: { params: {id: string}})
 export async function DELETE(req: NextRequest, { params }: {params: {id: string}}) {
   try {
     const { id } = params;
-    const { userId } = await req.json();
+    const {userId } = getAuth(req);
 
     const existingBooking = await prisma.booking.findUnique({ where: { id } });
 

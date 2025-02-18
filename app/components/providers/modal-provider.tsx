@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react"
 import CreateRoomModal from "../modals/create-room-modal"
-import CreateBookingModal from "../modals/create-booking-modal"
 import EditRoomModal from "../modals/edit-room-modal"
 
 const ModalProvider = () => {
@@ -15,7 +14,6 @@ const ModalProvider = () => {
   return (
     <div>
         <CreateRoomModal />
-        <CreateBookingModal />
         <EditRoomModal />
     </div>
   )

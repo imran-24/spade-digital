@@ -4,6 +4,7 @@ import React from "react";
 import { Booking, Room } from "@prisma/client";
 import BookingButton from "./booking-button";
 import Bookings from "./bookings";
+import Link from "next/link";
 
 interface RoomClientProps {
   room: Room & {
@@ -13,12 +14,12 @@ interface RoomClientProps {
 
 const RoomClient = ({ room }: RoomClientProps) => {
   return (
-    <div className='flex flex-col space-y-4  h-full'>
-      <div className='flex items-center justify-between'>
-        <h2 className='capitalize text-lg'>{room?.name}</h2>
+    <div className='flex flex-col space-y-4 max-w-6xl w-full mx-auto  h-full'>
+      <div className='mt-4 flex items-center justify-between'>
+        <Link href={`/rooms/${room.id}`}  className='capitalize text-base p-1'>{room?.name}</Link>
         <div>
           {/* Booking Button Section */}
-          <div className='mt-4'>
+          <div>
             {room.bookings.length >= room?.capacity ? (
               <p className='text-red-500'>This room is already full</p>
             ) : (

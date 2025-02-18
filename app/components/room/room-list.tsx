@@ -32,7 +32,7 @@ const RoomList = ({rooms}: RoomsWithBookingsProps ) => {
         <div
           key={room.id}
           onClick={() => router.push(`/rooms/${room.id}`)}
-          className='flex justify-between items-center p-4 hover:bg-gray-50 cursor-pointer border-b'
+          className='grid grid-cols-3 items-center justify-center p-2 hover:bg-gray-50 cursor-pointer border-b'
         >
           <div className='capitalize'>{room.name}</div>
           <div>
