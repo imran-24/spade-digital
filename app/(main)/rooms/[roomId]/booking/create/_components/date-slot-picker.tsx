@@ -65,9 +65,11 @@ const DateSlotPicker = ({ setStartDate, bookings }: DatePickerProps) => {
 
   useEffect(() => {
     const date = getSelectedDateTime();
-    setStartDate("startTime", date?.toString()!);
-    console.log(date);
-  }, [selectedDate, selectedSlot]);
+    if (date) {
+      setStartDate("startTime", date.toString());
+      console.log(date);
+    }
+  }, [selectedDate, selectedSlot, setStartDate]);
 
   const handleDateChange = (date: Date | null) => {
     setSelectedDate(date);

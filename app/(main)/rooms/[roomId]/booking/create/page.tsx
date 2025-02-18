@@ -4,7 +4,7 @@ import Heading from "@/app/components/Heading";
 import BookingFrom from "./_components/booking-from";
 import prisma from "@/lib/prisma";
 import Link from "next/link";
-import { ArrowBigLeft, ArrowLeft } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 
 const CreateBooking = async ({ params }: { params: { roomId: string } }) => {
   const room = await prisma.room.findUnique({
