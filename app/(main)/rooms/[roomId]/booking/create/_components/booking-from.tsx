@@ -7,7 +7,6 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import DateSlotPicker from "./date-slot-picker";
 import axios from "axios";
-import { RoomsWithBookingsProps } from "@/app/components/rooms";
 import { Booking, Room } from "@prisma/client";
 
 // booking schema to match the booking model
