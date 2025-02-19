@@ -1,9 +1,13 @@
+import axios from 'axios';
+
 
 
 export const getRooms = async () => {
-  const response = await fetch("/api/rooms");
-  if (!response.ok) {
-    throw new Error("Network response was not ok");
-  }
-  return response.json();
+    try {
+        const response = await axios.get("/api/rooms");
+        return response.data;
+    } catch (error) {
+        console.log(error);
+        throw new Error("Network response was not ok");
+    }
 };

@@ -1,3 +1,5 @@
+'use client';
+
 // import prisma from "@/lib/prisma";
 import { Room } from '@prisma/client';
 import { useQuery } from '@tanstack/react-query';
@@ -5,8 +7,6 @@ import { getRooms } from './actions/get-rooms';
 // import Rooms from "./components/rooms";
 
 export default function Home() {
-
-  'use client';
 
 
   const { data: rooms = [], isLoading, error } = useQuery({

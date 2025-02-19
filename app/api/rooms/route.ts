@@ -29,7 +29,12 @@ export async function GET(req: NextRequest) {
     if (!userId)
       return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
 
-    const rooms = await prisma.room.findMany();
+    const rooms = await prisma.room.findMany({
+      orderBy:{
+        createdAt: 'desc'
+      },
+      include: { bookings: true },
+    });
     return NextResponse.json(rooms);
   } catch (error) {
     console.log("ROOMS_GET", error);
