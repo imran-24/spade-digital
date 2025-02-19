@@ -1,18 +1,28 @@
-import prisma from "@/lib/prisma";
+// import prisma from "@/lib/prisma";
+import { Room } from '@prisma/client';
+import { useQuery } from '@tanstack/react-query';
 // import Rooms from "./components/rooms";
 
 export default async function Home() {
 
-  const rooms = await prisma.room.findMany({
-    orderBy: {
-      createdAt: "desc",
-    },
-    include:{
-      bookings: true
+  'use client';
+
+
+  const getRooms = async () => {
+    const response = await fetch('/api/rooms');
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
     }
+    return response.json();
+  };
+
+  const { data: rooms = [], isLoading, error } = useQuery({
+    queryKey: ['rooms'],
+    queryFn: getRooms,
   });
 
-  console.log(rooms);
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error loading rooms</div>;
 
 
   return (
@@ -20,7 +30,7 @@ export default async function Home() {
       <div className='mt-4'>
         {/* <Rooms rooms={rooms} /> */}
         {
-          rooms.map(room => (
+          rooms.map((room: Room) => (
             <div key={room.id} className="">{room.name}</div>
           ))
         }
