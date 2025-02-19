@@ -35,12 +35,12 @@ const Navbar = () => {
             />
           </div>
         )}
-        {/* <div className='flex items-center space-x-4'>
-          <Link href={"/favorites"}>
+        <div className='flex items-center space-x-4'>
+          {/* <Link href={"/favorites"}>
             <Heart className='fill-rose-500 hover:fill-rose-700 transition-colors ease-in-out  size-8 text-white' />
-          </Link>
+          </Link> */}
           <UserButton />
-        </div> */}
+        </div>
       </ClerkLoaded>
     </div>
   );
