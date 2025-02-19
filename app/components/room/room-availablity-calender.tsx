@@ -5,7 +5,7 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 // import { startOfWeek } from "date-fns";
 
-type Booking = {
+type Bookingpeisma = {
   startTime: string;
   endTime: string;
 };
