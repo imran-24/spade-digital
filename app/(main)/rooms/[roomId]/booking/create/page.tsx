@@ -23,15 +23,15 @@ const CreateBooking = async ({ params }: { params: { roomId: string } }) => {
   if (!room) return;
 
   return (
-    <div className='h-full p-6'>
+    <div className='h-full relative  px-6 py-4'>
 
-      <Link href={`/rooms/${room.id}`} className='capitalize text-lg p-1 px-2   flex items-center space-x-2 w-fit transition-all ease-in-out hover:bg-neutral-100 rounded-full'>
+      <Link href={`/rooms/${room.id}`} className='capitalize absolute  text-lg p-2  flex items-center space-x-2 w-fit transition-all ease-in-out hover:bg-neutral-100 rounded-full'>
         <ArrowLeft className="text-black " />
-        <p>{room?.name}</p>
+        {/* <p className="tracking-tight">{room?.name}</p> */}
       </Link>
 
-      <div className='flex flex-col justify-center  gap-3 max-w-md mx-auto mt-4'>
-        <Heading title='Create Booking' subtitle='Book this room' />
+      <div className='flex flex-col justify-center  gap-3 max-w-xl mx-auto mt-4'>
+        <Heading title={room?.name} subtitle={"Book a slot for meeting"} />
         <BookingFrom roomId={params.roomId} room={room} />
       </div>
     </div>

@@ -16,8 +16,8 @@ const Navbar = () => {
   const isOpen = modalStore.type === "createRoom";
 
   return (
-    <div className='flex items-center justify-between h-16 p-6 bg-white'>
-      <Link href={"/"} className='text-lg'>Meeting Room Booking System</Link>
+    <div className='flex items-center justify-between h-20 p-6 bg-white'>
+      <Link href={"/"} className='text-xl'>Meeting Room Booking System</Link>
 
       <ClerkLoading>
         <Loader2 className='text-gray-500 animate-spin' />
@@ -28,6 +28,7 @@ const Navbar = () => {
             <Button
               label='Create Room'
               disabled={isOpen}
+              small
               onClick={() => modalStore.onOpen("createRoom")}
             />
           </div>

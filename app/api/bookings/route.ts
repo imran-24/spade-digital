@@ -8,8 +8,15 @@ export async function POST(req: NextRequest) {
 
     if(!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
 
-    const { roomId, title, description, startTime, endTime } =
+    const { roomId, title, description, startTime, endTime, photoUrl } =
       await req.json();
+
+      if (!title || !startTime || !roomId) {
+        return NextResponse.json(
+          { error: "Missing required fields" },
+          { status: 400 }
+        );
+      }
 
       // Check for existing bookings with overlapping time
       const existingTimeConflict = await prisma.booking.findFirst({
@@ -43,7 +50,7 @@ export async function POST(req: NextRequest) {
     // }
 
     const booking = await prisma.booking.create({
-      data: { roomId, userId, title, description, startTime, endTime },
+      data: { roomId, userId, title, description, startTime, endTime, photoUrl },
     });
 
     return NextResponse.json(booking, { status: 201 });

@@ -18,7 +18,7 @@ This project is a meeting room booking system built with modern technologies.
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/yourusername/spade-digital-14.git
+   https://github.com/imran-24/spade-digital.git
    ```
 
 2. **Install dependencies:**

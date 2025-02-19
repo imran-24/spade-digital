@@ -128,7 +128,7 @@ const DateSlotPicker = ({ setStartDate, bookings }: DatePickerProps) => {
             Available Time Slots
           </label>
           {allSlots.length ? (
-            <div className='grid grid-cols-4 sm:grid-cols-6 gap-2'>
+            <div className='grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-8  gap-2'>
               {allSlots.map((slot) => (
                 <button
                   key={slot}

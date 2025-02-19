@@ -8,6 +8,8 @@ import { z } from "zod";
 import DateSlotPicker from "./date-slot-picker";
 import axios from "axios";
 import { Booking, Room } from "@prisma/client";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { storage } from "@/firebase";
 
 // booking schema to match the booking model
 const bookingSchema = z.object({
@@ -16,13 +18,14 @@ const bookingSchema = z.object({
   startTime: z.string().refine((val) => !isNaN(Date.parse(val)), {
     message: "Invalid start time",
   }),
+  photoUrl: z.string().optional(),
 });
 
-interface BooingFormProps{
-    roomId: string;
-    room: Room & {
-        bookings: Booking[];
-    }
+interface BooingFormProps {
+  roomId: string;
+  room: Room & {
+    bookings: Booking[];
+  };
 }
 
 const BookingFrom = ({ roomId, room }: BooingFormProps) => {
@@ -38,9 +41,64 @@ const BookingFrom = ({ roomId, room }: BooingFormProps) => {
     resolver: zodResolver(bookingSchema),
   });
 
+  const [buffer, setBuffer] = useState<File | null>(null);
+
+  const onImagChange = (files: FileList | null) => {
+    const file = files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        if (e.target?.result) {
+          setBuffer(file);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const uploadImage = async (file: File) => {
+
+    console.log(file)
+    const fileRef = ref(storage, `/rooms/${roomId}/bookings`);
+    // Upload the file
+    await uploadBytes(fileRef, file);
+
+    // Get the download URL
+    const downloadURL = await getDownloadURL(fileRef);
+    console.log(downloadURL);
+    setValue("photoUrl", downloadURL);
+  };
+
+  // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+
+  //   if (!user) return window.alert("You need to login first");
+
+  //   const data = {
+  //     name,
+  //     photoUrl,
+  //   };
+
+  //   try {
+  //     if (buffer) uploadImage(buffer!);
+  //     await axios.patch(`${baseurl}/users/${profile.id}`, data, {
+  //       headers: { authtoken: token },
+  //     });
+  //     router.refresh(); 
+  //   } catch (error: unknown) {
+  //     if (error instanceof AxiosError) {
+  //       window.alert(error.response?.data.error);
+  //       console.log(error.response?.data.error);
+  //     }
+  //   }
+    
+  // };
+
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
       setIsLoading(true);
+
+      if (buffer) uploadImage(buffer!);
 
       const startTime = new Date(data.startTime);
       const endTime = new Date(startTime.getTime() + 30 * 60000); // Add 30 minutes in milliseconds
@@ -83,7 +141,14 @@ const BookingFrom = ({ roomId, room }: BooingFormProps) => {
           </p>
         )}
 
-        <DateSlotPicker setStartDate={setValue} bookings={room.bookings}  />
+        <input
+          type='file'
+          onChange={(e) => onImagChange(e.target.files)}
+          accept='image/*'
+          placeholder='Photo URL (optional)'
+        />
+
+        <DateSlotPicker setStartDate={setValue} bookings={room.bookings} />
         {errors.startTime && (
           <p className='input-error'>{errors.startTime?.message?.toString()}</p>
         )}
