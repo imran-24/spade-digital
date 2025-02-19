@@ -11,11 +11,27 @@ export async function POST(req: NextRequest) {
     const { roomId, title, description, startTime, endTime } =
       await req.json();
 
-    console.log(roomId, userId, title, description, startTime, endTime);  
+      // Check for existing bookings with overlapping time
+      const existingTimeConflict = await prisma.booking.findFirst({
+        where: {
+          roomId,
+          userId,
+          startTime,
+          endTime,
+        },
+      });
+
+      console.log(existingTimeConflict);
+
+      if (existingTimeConflict) {
+        return NextResponse.json(
+        { error: "Time slot already booked" },
+        { status: 400 }
+        );
+      }
     // const existingBooking = await prisma.booking.findFirst({
     //   where: {
     //     roomId,
-    //     OR: [{ startTime: { lte: endTime }, endTime: { gte: startTime } }],
     //   },
     // });
 

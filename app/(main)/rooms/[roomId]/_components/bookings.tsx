@@ -1,3 +1,4 @@
+import { useAuth } from "@clerk/nextjs";
 import { Booking } from "@prisma/client";
 import axios from "axios";
 import { format } from "date-fns";
@@ -6,24 +7,29 @@ import React, { MouseEvent } from "react";
 
 const Bookings = ({ data }: { data: Booking[] }) => {
   const router = useRouter();
+  const { userId } = useAuth();
   const PAGE_SIZE = 10;
   const [page, setPage] = React.useState(1);
 
   const totalPages = Math.ceil((data?.length ?? 0) / PAGE_SIZE);
 
+  console.log(data, userId);
   const paginatedBookings = data.slice(
     (page - 1) * PAGE_SIZE,
     page * PAGE_SIZE
   );
 
-  const handleCancelBooking = async (e: MouseEvent<HTMLButtonElement>, bookingId: string) => {
+  const handleCancelBooking = async (
+    e: MouseEvent<HTMLButtonElement>,
+    bookingId: string
+  ) => {
     e.stopPropagation();
     try {
       await axios.delete(`/api/bookings/${bookingId}`);
-      window.alert("Booking deleted")
+      window.alert("Booking deleted");
       router.refresh();
     } catch (error) {
-      console.error('Error canceling booking:', error);
+      console.error("Error canceling booking:", error);
       // Handle error (e.g., show toast notification)
     }
   };
@@ -38,41 +44,46 @@ const Bookings = ({ data }: { data: Booking[] }) => {
           <thead className='bg-gray-50'>
             <tr>
               <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
-          Title
+                Title
               </th>
               <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
-          Description
+                Description
               </th>
               <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
-          Date
+                Date
               </th>
               <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
-          Time
+                Time
               </th>
               <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
-          Actions
+                Actions
               </th>
             </tr>
           </thead>
           <tbody className='bg-white divide-y divide-gray-200'>
             {paginatedBookings.map((booking: Booking) => (
               <tr key={booking.id} className='hover:bg-gray-50'>
-          <td className='px-6 py-4 whitespace-nowrap'>{booking.title}</td>
-          <td className='px-6 py-4'>{booking.description}</td>
-            <td className='px-6 py-4 whitespace-nowrap'>
-            {format(new Date(booking.startTime), 'PPP')}
-            </td>
-            <td className='px-6 py-4 whitespace-nowrap'>
-            {format(new Date(booking.startTime), 'p')} - {format(new Date(booking.endTime), 'p')}
-            </td>
-          <td className='px-6 py-4 whitespace-nowrap'>
-            <button
-              onClick={(e) => handleCancelBooking(e, booking.id)}
-              className='text-white bg-black rounded-md text-sm font-semibold p-1'
-            >
-              Cancel
-            </button>
-          </td>
+                <td className='px-6 py-4 whitespace-nowrap'>{booking.title}</td>
+                <td className='px-6 py-4'>{booking.description}</td>
+                <td className='px-6 py-4 whitespace-nowrap'>
+                  {format(new Date(booking.startTime), "PPP")}
+                </td>
+                <td className='px-6 py-4 whitespace-nowrap'>
+                  {format(new Date(booking.startTime), "p")} -{" "}
+                  {format(new Date(booking.endTime), "p")}
+                </td>
+                {userId == booking.userId ? (
+                  <td className='px-6 py-4 whitespace-nowrap'>
+                    <button
+                      onClick={(e) => handleCancelBooking(e, booking.id)}
+                      className='text-white bg-black rounded-full text-sm font-semibold p-1 px-2'
+                    >
+                      Cancel
+                    </button>
+                  </td>
+                ) : (
+                  <td className="px-6 text-sm  py-4 whitespace-nowrap"><p className="">-</p></td>
+                )}
               </tr>
             ))}
           </tbody>

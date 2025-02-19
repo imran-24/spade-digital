@@ -5,14 +5,21 @@ import React, { useState } from "react";
 import RoomFilter from "./room/room-filter";
 import RoomList from "./room/room-list";
 import Pagination from "./room/pagination";
+import { useAuth } from "@clerk/nextjs";
+
+const isAdmin = process.env.NEXT_PUBLIC_IS_ADMIN;
 
 export interface RoomsWithBookingsProps {
   rooms: (Room & {
     bookings: Booking[];
   })[];
+  admin?: boolean;
 }
 // Import the new components (these will be created in separate files)
 const Rooms = ({ rooms }: RoomsWithBookingsProps) => {
+  const { orgRole } = useAuth();
+  const admin = isAdmin === orgRole;
+
   const [currentPage, setCurrentPage] = useState(1);
   const [capacityFilter, setCapacityFilter] = useState("");
   const [amenityFilter, setAmenityFilter] = useState("");
@@ -37,9 +44,10 @@ const Rooms = ({ rooms }: RoomsWithBookingsProps) => {
     new Set(rooms.flatMap((room) => room.amenities || []))
   );
 
-
   return (
-    <div className='max-w-4xl mx-auto p-6 border rounded-lg'>
+    <div className='max-w-4xl overflow-x-auto  mx-auto p-6 border rounded-lg'>
+      <h2 className='text-lg'>All Rooms</h2>
+
       {/* Filter Controls */}
       <RoomFilter
         amenityFilter={amenityFilter}
@@ -50,13 +58,7 @@ const Rooms = ({ rooms }: RoomsWithBookingsProps) => {
       />
 
       <div className='bg-white rounded-lg shadow-sm'>
-        <div className='grid grid-cols-3 bg-gray-50 p-2 rounded-t-lg items-center justify-center font-semibold'>
-          <div>Room Name</div>
-          <div className=''>Available Slots</div>
-          <div className=''>Actions</div>
-        </div>
-
-        <RoomList rooms={currentRooms} />
+        <RoomList rooms={currentRooms} admin={admin} />
 
         {/* Pagination Controls */}
         <Pagination

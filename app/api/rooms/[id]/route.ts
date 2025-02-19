@@ -1,8 +1,17 @@
 import prisma from "@/lib/prisma";
+import { getAuth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function PUT(req: NextRequest, { params }: {params: {id: string}}) {
+export async function PUT(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
   try {
+    const { userId, orgRole } = getAuth(req);
+
+    if (!userId || orgRole !== process.env.NEXT_PUBLIC_IS_ADMIN)
+      return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
+
     const { id } = params;
     const { name, capacity, amenities } = await req.json();
 
@@ -13,14 +22,21 @@ export async function PUT(req: NextRequest, { params }: {params: {id: string}}) 
 
     return NextResponse.json(updatedRoom);
   } catch (error) {
-    console.log("ROOM_PUT", error)
+    console.log("ROOM_PUT", error);
     return NextResponse.json({ error: "Error updating room" }, { status: 500 });
   }
 }
 
-
-export async function DELETE(req: NextRequest, { params }: {params: {id: string}}) {
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
   try {
+    const { userId, orgRole } = getAuth(req);
+
+    if (!userId || orgRole !== process.env.NEXT_PUBLIC_IS_ADMIN)
+      return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
+
     const { id } = params;
 
     const bookings = await prisma.booking.findMany({ where: { roomId: id } });

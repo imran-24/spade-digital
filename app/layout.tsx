@@ -36,7 +36,7 @@ export default function RootLayout({
         <QueryProvider>
           <ClerkProvider>
             <ModalProvider />
-            <div className='min-h-full p-6'>
+            <div className='p-6'>
               <Navbar />
               <main className='h-full'>{children}</main>
             </div>

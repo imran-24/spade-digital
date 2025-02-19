@@ -11,22 +11,24 @@ const isAdmin = process.env.NEXT_PUBLIC_IS_ADMIN;
 
 const Navbar = () => {
   const { orgRole } = useAuth();
-  const { onOpen, isOpen } = useModalStore();
+  const modalStore = useModalStore();
+
+  const isOpen = modalStore.type === "createRoom";
 
   return (
-    <div className='mb-4 flex items-center justify-between'>
-      <Link href={"/"} className='text-lg'>Meeting Room booking System</Link>
+    <div className='flex items-center justify-between'>
+      <Link href={"/"} className='text-lg'>Meeting Room Booking System</Link>
 
       <ClerkLoading>
         <Loader2 className='text-gray-500 animate-spin' />
       </ClerkLoading>
       <ClerkLoaded>
         {orgRole === isAdmin && (
-          <div className=''>
+          <div className='hidden sm:flex'>
             <Button
               label='Create Room'
               disabled={isOpen}
-              onClick={() => onOpen("createRoom")}
+              onClick={() => modalStore.onOpen("createRoom")}
             />
           </div>
         )}

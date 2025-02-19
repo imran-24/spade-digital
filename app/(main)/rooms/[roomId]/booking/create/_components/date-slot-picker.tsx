@@ -16,7 +16,7 @@ const generateSlots = (date: Date) => {
   const startTime = new Date(date);
   startTime.setHours(9, 0, 0, 0); // Start at 9:00 AM
   const endTime = new Date(date);
-  endTime.setHours(18, 0, 0, 0); // End at 5:00 PM
+  endTime.setHours(24, 0, 0, 0); // End at 5:00 PM
 
   const slots = [];
   let current = startTime;
@@ -36,7 +36,11 @@ const generateSlots = (date: Date) => {
 };
 
 interface DatePickerProps {
-  setStartDate: (name: "startTime", value: string) => void;
+  setStartDate: (
+    name: "startTime",
+    value: string,
+    options?: { shouldValidate?: boolean; shouldDirty?: boolean }
+  ) => void;
   bookings: Booking[];
 }
 
@@ -49,16 +53,19 @@ const DateSlotPicker = ({ setStartDate, bookings }: DatePickerProps) => {
   useEffect(() => {
     if (selectedDate) {
       setAllSlots(generateSlots(selectedDate));
-      const formattedBookings = bookings.reduce((acc: { [key: string]: string[] }, booking) => {
-        const date = format(new Date(booking.startTime), 'yyyy-MM-dd');
-        const time = format(new Date(booking.startTime), 'HH:mm');
-        
-        if (!acc[date]) {
-          acc[date] = [];
-        }
-        acc[date].push(time);
-        return acc;
-      }, {});
+      const formattedBookings = bookings.reduce(
+        (acc: { [key: string]: string[] }, booking) => {
+          const date = format(new Date(booking.startTime), "yyyy-MM-dd");
+          const time = format(new Date(booking.startTime), "HH:mm");
+
+          if (!acc[date]) {
+            acc[date] = [];
+          }
+          acc[date].push(time);
+          return acc;
+        },
+        {}
+      );
       setBookedSlots(formattedBookings);
     }
   }, [selectedDate, bookings]);
@@ -66,7 +73,10 @@ const DateSlotPicker = ({ setStartDate, bookings }: DatePickerProps) => {
   useEffect(() => {
     const date = getSelectedDateTime();
     if (date) {
-      setStartDate("startTime", date.toString());
+      setStartDate("startTime", date.toString(), {
+        shouldValidate: true,
+        shouldDirty: true,
+      });
       console.log(date);
     }
   }, [selectedDate, selectedSlot, setStartDate]);
@@ -94,12 +104,12 @@ const DateSlotPicker = ({ setStartDate, bookings }: DatePickerProps) => {
 
   return (
     <div className='bg-white rounded-xl space-y-1 w-full'>
-      <h2 className='block text-sm font-medium text-gray-700'>Choose Your Time</h2>
+      <h2 className='block text-sm font-medium text-gray-700'>
+        Choose Your Time
+      </h2>
 
       <div className='space-y-2 w-full'>
-        <label className='block text-sm  text-gray-500'>
-          Select Date
-        </label>
+        <label className='block text-sm  text-gray-500'>Select Date</label>
         <DatePicker
           selected={selectedDate}
           onChange={handleDateChange}
@@ -117,31 +127,33 @@ const DateSlotPicker = ({ setStartDate, bookings }: DatePickerProps) => {
           <label className='block text-sm font-medium text-gray-700'>
             Available Time Slots
           </label>
-            {allSlots.length ? (
+          {allSlots.length ? (
             <div className='grid grid-cols-4 sm:grid-cols-6 gap-2'>
               {allSlots.map((slot) => (
-              <button
-                key={slot}
-                onClick={() => setSelectedSlot(slot)}
-                disabled={unavailableSlots.includes(slot)}
-                className={`
+                <button
+                  key={slot}
+                  onClick={() => setSelectedSlot(slot)}
+                  disabled={unavailableSlots.includes(slot)}
+                  className={`
                 p-3 rounded-lg transition-all duration-200 font-medium text-sm
                 ${
                   unavailableSlots.includes(slot)
-                  ? "bg-gray-100 text-gray-400 cursor-not-allowed"
-                  : selectedSlot === slot
-                  ? "bg-indigo-600 text-white shadow-md hover:bg-indigo-700 transform hover:scale-105"
-                  : "bg-white text-gray-700 border border-gray-200 hover:border-indigo-500 hover:text-indigo-600 hover:shadow-md"
+                    ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                    : selectedSlot === slot
+                    ? "bg-indigo-600 text-white shadow-md hover:bg-indigo-700 transform hover:scale-105"
+                    : "bg-white text-gray-700 border border-gray-200 hover:border-indigo-500 hover:text-indigo-600 hover:shadow-md"
                 }
                 `}
-              >
-                {slot}
-              </button>
+                >
+                  {slot}
+                </button>
               ))}
             </div>
-            ) : (
-            <p className="block text-sm  text-neutral-500">Sorry, no slots available</p>
-            )}
+          ) : (
+            <p className='block text-sm  text-neutral-500'>
+              Sorry, no slots available
+            </p>
+          )}
         </div>
       )}
 

@@ -21,7 +21,7 @@ const RoomClient = ({ room }: RoomClientProps) => {
           {/* Booking Button Section */}
           <div>
             {room.bookings.length >= room?.capacity ? (
-              <p className='text-red-500'>This room is already full</p>
+              <p className='text-red-500'>This room is full</p>
             ) : (
               <BookingButton roomId={room?.id} />
             )}
