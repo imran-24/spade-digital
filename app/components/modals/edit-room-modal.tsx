@@ -36,6 +36,7 @@ const EditRoomModal = () => {
     defaultValues: {
       name: "",
       capacity: 1,
+      amenities: ""
     },
   });
 
@@ -44,6 +45,7 @@ const EditRoomModal = () => {
       reset({
         name: room.name,
         capacity: room.capacity,
+        amenities: room.amenities.join(", "),
       });
     }
   }, [room, reset]);
