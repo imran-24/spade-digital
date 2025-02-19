@@ -17,11 +17,15 @@
 <ol style="font-family: Arial, sans-serif; line-height: 1.6; color: #666;">
   <li><strong>Clone the repository:</strong>
     <pre style="background-color: #f4f4f4; padding: 10px;" id="clone-repo">git clone https://github.com/yourusername/spade-digital-14.git</pre>
-    <button onclick="copyToClipboard('#clone-repo')" style="background-color: #007bff; color: white; padding: 5px 10px; border: none; border-radius: 5px; cursor: pointer;">Copy</button>
+    <button onclick="copyToClipboard('#clone-repo')" style="background-color: transparent; border: none; cursor: pointer;">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Document_copy_icon.svg/120px-Document_copy_icon.svg.png" alt="Copy" width="20" height="20" />
+    </button>
   </li>
   <li><strong>Install dependencies:</strong>
     <pre style="background-color: #f4f4f4; padding: 10px;" id="install-dependencies">npm install</pre>
-    <button onclick="copyToClipboard('#install-dependencies')" style="background-color: #007bff; color: white; padding: 5px 10px; border: none; border-radius: 5px; cursor: pointer;">Copy</button>
+    <button onclick="copyToClipboard('#install-dependencies')" style="background-color: transparent; border: none; cursor: pointer;">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Document_copy_icon.svg/120px-Document_copy_icon.svg.png" alt="Copy" width="20" height="20" />
+    </button>
   </li>
   <li><strong>Set up environment variables:</strong>
     <ul>
@@ -37,12 +41,16 @@
         NEXT_PUBLIC_IS_ADMIN=
         DATABASE_URL=mongodb://localhost:27017/spade-digital
       </pre>
-      <button onclick="copyToClipboard('#env-vars')" style="background-color: #007bff; color: white; padding: 5px 10px; border: none; border-radius: 5px; cursor: pointer;">Copy</button>
+      <button onclick="copyToClipboard('#env-vars')" style="background-color: transparent; border: none; cursor: pointer;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Document_copy_icon.svg/120px-Document_copy_icon.svg.png" alt="Copy" width="20" height="20" />
+      </button>
     </ul>
   </li>
   <li><strong>Run the project:</strong>
     <pre style="background-color: #f4f4f4; padding: 10px;" id="run-dev">npm run dev</pre>
-    <button onclick="copyToClipboard('#run-dev')" style="background-color: #007bff; color: white; padding: 5px 10px; border: none; border-radius: 5px; cursor: pointer;">Copy</button>
+    <button onclick="copyToClipboard('#run-dev')" style="background-color: transparent; border: none; cursor: pointer;">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Document_copy_icon.svg/120px-Document_copy_icon.svg.png" alt="Copy" width="20" height="20" />
+    </button>
   </li>
   <li>Visit <strong>http://localhost:3000</strong> to view the app in your browser.</li>
 </ol>
@@ -51,13 +59,19 @@
 <ol style="font-family: Arial, sans-serif; line-height: 1.6; color: #666;">
   <li><strong>Run Prisma migrations:</strong>
     <pre style="background-color: #f4f4f4; padding: 10px;" id="prisma-generate">npx prisma generate</pre>
-    <button onclick="copyToClipboard('#prisma-generate')" style="background-color: #007bff; color: white; padding: 5px 10px; border: none; border-radius: 5px; cursor: pointer;">Copy</button>
+    <button onclick="copyToClipboard('#prisma-generate')" style="background-color: transparent; border: none; cursor: pointer;">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Document_copy_icon.svg/120px-Document_copy_icon.svg.png" alt="Copy" width="20" height="20" />
+    </button>
     <pre style="background-color: #f4f4f4; padding: 10px;" id="prisma-push">npx prisma db push</pre>
-    <button onclick="copyToClipboard('#prisma-push')" style="background-color: #007bff; color: white; padding: 5px 10px; border: none; border-radius: 5px; cursor: pointer;">Copy</button>
+    <button onclick="copyToClipboard('#prisma-push')" style="background-color: transparent; border: none; cursor: pointer;">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Document_copy_icon.svg/120px-Document_copy_icon.svg.png" alt="Copy" width="20" height="20" />
+    </button>
   </li>
   <li><strong>Seed the database (optional):</strong>
     <pre style="background-color: #f4f4f4; padding: 10px;" id="prisma-seed">npx prisma db seed</pre>
-    <button onclick="copyToClipboard('#prisma-seed')" style="background-color: #007bff; color: white; padding: 5px 10px; border: none; border-radius: 5px; cursor: pointer;">Copy</button>
+    <button onclick="copyToClipboard('#prisma-seed')" style="background-color: transparent; border: none; cursor: pointer;">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Document_copy_icon.svg/120px-Document_copy_icon.svg.png" alt="Copy" width="20" height="20" />
+    </button>
   </li>
 </ol>
 
