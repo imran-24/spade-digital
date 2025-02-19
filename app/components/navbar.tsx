@@ -16,7 +16,7 @@ const Navbar = () => {
   const isOpen = modalStore.type === "createRoom";
 
   return (
-    <div className='flex items-center justify-between'>
+    <div className='flex items-center justify-between h-16 p-6 bg-white'>
       <Link href={"/"} className='text-lg'>Meeting Room Booking System</Link>
 
       <ClerkLoading>

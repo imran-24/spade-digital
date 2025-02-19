@@ -21,7 +21,9 @@ const RoomPage = async ({ params }: RoomPageProps) => {
   if (!room) return;
 
   return (
-    <RoomClient room={room}  />
+    <div className="p-6 h-full">
+      <RoomClient room={room}  />
+    </div>
   );
 };
 

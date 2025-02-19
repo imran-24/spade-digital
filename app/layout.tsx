@@ -36,9 +36,9 @@ export default function RootLayout({
         <QueryProvider>
           <ClerkProvider>
             <ModalProvider />
-            <div className='p-6'>
+            <div className=''>
               <Navbar />
-              <main className='h-full'>{children}</main>
+              <main className='h-[calc(100vh - 4rem)]'>{children}</main>
             </div>
           </ClerkProvider>
         </QueryProvider>

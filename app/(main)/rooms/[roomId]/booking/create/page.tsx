@@ -23,7 +23,7 @@ const CreateBooking = async ({ params }: { params: { roomId: string } }) => {
   if (!room) return;
 
   return (
-    <div className='h-full'>
+    <div className='h-full p-6'>
 
       <Link href={`/rooms/${room.id}`} className='capitalize text-lg p-1 px-2   flex items-center space-x-2 w-fit transition-all ease-in-out hover:bg-neutral-100 rounded-full'>
         <ArrowLeft className="text-black " />
