@@ -23,12 +23,17 @@
   </li>
   <li><strong>Set up environment variables:</strong>
     <ul>
-      <li>Create a <code>.env</code> file in the root directory.</li>
+      <li>Edit the <code>.env.example</code> file in the root directory.</li>
       <li>Set the necessary environment variables for MongoDB and Clerk authentication. Example:</li>
       <pre style="background-color: #f4f4f4; padding: 10px;">
-NEXT_PUBLIC_CLERK_FRONTEND_API=<Your Clerk Frontend API>
-CLERK_API_KEY=<Your Clerk API Key>
-DATABASE_URL=mongodb://localhost:27017/spade-digital
+        NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+        CLERK_SECRET_KEY=
+        NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+        NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+        NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/
+        NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/
+        NEXT_PUBLIC_IS_ADMIN=
+        DATABASE_URL=mongodb://localhost:27017/spade-digital
       </pre>
     </ul>
   </li>
@@ -47,14 +52,3 @@ DATABASE_URL=mongodb://localhost:27017/spade-digital
     <pre style="background-color: #f4f4f4; padding: 10px;">npx prisma db seed</pre>
   </li>
 </ol>
-
-<h2 style="font-family: Arial, sans-serif; color: #555;">How to Contribute:</h2>
-<ul style="font-family: Arial, sans-serif; line-height: 1.6; color: #666;">
-  <li>Fork the repository.</li>
-  <li>Create a feature branch.</li>
-  <li>Make your changes.</li>
-  <li>Submit a pull request for review.</li>
-</ul>
-
-<h2 style="font-family: Arial, sans-serif; color: #555;">License:</h2>
-<p style="font-family: Arial, sans-serif; line-height: 1.6; color: #666;">This project is licensed under the MIT License - see the <a href="LICENSE" style="color: #007bff;">LICENSE</a> file for details.</p>
