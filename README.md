@@ -1,36 +1,103 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spade Digital Project - Meeting Room Booking System</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 20px;
+      background-color: #f4f4f4;
+    }
+    h1 {
+      color: #333;
+    }
+    h2 {
+      color: #555;
+    }
+    p, ul {
+      font-size: 1rem;
+      color: #666;
+    }
+    ul {
+      list-style-type: square;
+      margin-left: 20px;
+    }
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .tech {
+      background-color: #ddd;
+      padding: 8px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Spade Digital - Meeting Room Booking System</h1>
+  <p>This project is a meeting room booking system built with modern technologies.</p>
 
-## Getting Started
+  <h2>Technologies Used:</h2>
+  <div class="tech-stack">
+    <div class="tech">Next.js 14</div>
+    <div class="tech">React</div>
+    <div class="tech">Prisma</div>
+    <div class="tech">TailwindCSS</div>
+    <div class="tech">TypeScript</div>
+    <div class="tech">MongoDB</div>
+    <div class="tech">Zod</div>
+    <div class="tech">Clerk (Authentication)</div>
+  </div>
 
-First, run the development server:
+  <h2>How to Run the Project Locally:</h2>
+  <ol>
+    <li><strong>Clone the repository:</strong>
+      <pre>git clone https://github.com/yourusername/spade-digital-14.git</pre>
+    </li>
+    <li><strong>Install dependencies:</strong>
+      <pre>npm install</pre>
+    </li>
+    <li><strong>Set up environment variables:</strong>
+      <ul>
+        <li>Create a `.env` file in the root directory.</li>
+        <li>Set the necessary environment variables for MongoDB and Clerk authentication. Example:</li>
+        <pre>
+NEXT_PUBLIC_CLERK_FRONTEND_API=<Your Clerk Frontend API>
+CLERK_API_KEY=<Your Clerk API Key>
+DATABASE_URL=mongodb://localhost:27017/spade-digital
+        </pre>
+      </ul>
+    </li>
+    <li><strong>Run the project:</strong>
+      <pre>npm run dev</pre>
+    </li>
+    <li>Visit <strong>http://localhost:3000</strong> to view the app in your browser.</li>
+  </ol>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+  <h2>Additional Setup for Prisma:</h2>
+  <ol>
+    <li><strong>Run Prisma migrations:</strong>
+      <pre>npx prisma migrate dev</pre>
+    </li>
+    <li><strong>Seed the database (optional):</strong>
+      <pre>npx prisma db seed</pre>
+    </li>
+  </ol>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+  <h2>How to Contribute:</h2>
+  <ul>
+    <li>Fork the repository.</li>
+    <li>Create a feature branch.</li>
+    <li>Make your changes.</li>
+    <li>Submit a pull request for review.</li>
+  </ul>
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+  <h2>License:</h2>
+  <p>This project is licensed under the MIT License - see the <a href="LICENSE">LICENSE</a> file for details.</p>
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+</body>
+</html>
