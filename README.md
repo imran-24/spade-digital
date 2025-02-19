@@ -46,7 +46,8 @@
 <h2 style="font-family: Arial, sans-serif; color: #555;">Additional Setup for Prisma:</h2>
 <ol style="font-family: Arial, sans-serif; line-height: 1.6; color: #666;">
   <li><strong>Run Prisma migrations:</strong>
-    <pre style="background-color: #f4f4f4; padding: 10px;">npx prisma migrate dev</pre>
+    <pre style="background-color: #f4f4f4; padding: 10px;">npx prisma genearate</pre>
+    <pre style="background-color: #f4f4f4; padding: 10px;">npx prisma db push</pre>
   </li>
   <li><strong>Seed the database (optional):</strong>
     <pre style="background-color: #f4f4f4; padding: 10px;">npx prisma db seed</pre>
