@@ -1,20 +1,13 @@
 // import prisma from "@/lib/prisma";
 import { Room } from '@prisma/client';
 import { useQuery } from '@tanstack/react-query';
+import { getRooms } from './actions/get-rooms';
 // import Rooms from "./components/rooms";
 
-export default async function Home() {
+export default function Home() {
 
   'use client';
 
-
-  const getRooms = async () => {
-    const response = await fetch('/api/rooms');
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    return response.json();
-  };
 
   const { data: rooms = [], isLoading, error } = useQuery({
     queryKey: ['rooms'],
