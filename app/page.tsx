@@ -1,5 +1,5 @@
 import prisma from "@/lib/prisma";
-import Rooms from "./components/rooms";
+// import Rooms from "./components/rooms";
 
 export default async function Home() {
 
