@@ -20,9 +20,7 @@ const Rooms = ({ rooms }: RoomsWithBookingsProps) => {
   const { orgRole } = useAuth();
   const admin = isAdmin === orgRole;
 
-  console.log(rooms);
 
-  
   const [currentPage, setCurrentPage] = useState(1);
   const [capacityFilter, setCapacityFilter] = useState("");
   const [amenityFilter, setAmenityFilter] = useState("");

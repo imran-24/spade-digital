@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Button from "../Button";
 import { useRouter } from "next/navigation";
@@ -5,8 +7,23 @@ import axios from "axios";
 import { useModalStore } from "@/hooks/use-modal-store";
 import { Room } from "@prisma/client";
 import { RoomsWithBookingsProps } from "../rooms";
+import { Eye, Heart } from "lucide-react";
 
 const RoomList = ({ rooms, admin }: RoomsWithBookingsProps) => {
+  const [favoriteRooms, setFavoriteRooms] = React.useState<Room[]>([]);
+  const [lastVisited, setLastVisited] = React.useState<Room | null>(null);
+
+  React.useEffect(() => {
+    const storedFavorites = JSON.parse(
+      localStorage.getItem("favoriteRooms") || "[]"
+    );
+    const storedLastVisited = JSON.parse(
+      localStorage.getItem("lastRoom") || "null"
+    );
+    setFavoriteRooms(storedFavorites);
+    setLastVisited(storedLastVisited);
+  }, []);
+
   const router = useRouter();
   const modalStore = useModalStore();
   const handleDelete = async (e: React.MouseEvent, id: string) => {
@@ -38,11 +55,11 @@ const RoomList = ({ rooms, admin }: RoomsWithBookingsProps) => {
               <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
                 Available Slots
               </th>
-              {admin && (
-                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
-                  Actions
-                </th>
-              )}
+              {/* {admin && ( */}
+              <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
+                Actions
+              </th>
+              {/* )} */}
             </tr>
           </thead>
           <tbody className='bg-white divide-y divide-gray-100'>
@@ -62,22 +79,38 @@ const RoomList = ({ rooms, admin }: RoomsWithBookingsProps) => {
                   </span>
                 </td>
 
-                {admin && (
-                  <td className='px-6 py-2 whitespace-nowrap'>
-                    <div className='flex gap-2'>
-                      <Button
-                        small
-                        onClick={(e) => handleEdit(e, room)}
-                        label='Edit'
-                      />
-                      <Button
-                        small
-                        onClick={(e) => handleDelete(e, room.id)}
-                        label='Delete'
-                      />
+                <td className='px-6 py-2 whitespace-nowrap'>
+                  <div className='flex items-center justify-between  gap-2'>
+                    {admin && (
+                      <div className='flex gap-2'>
+                        <Button
+                          small
+                          onClick={(e) => handleEdit(e, room)}
+                          label='Edit'
+                        />
+                        <Button
+                          small
+                          onClick={(e) => handleDelete(e, room.id)}
+                          label='Delete'
+                        />
+                      </div>
+                    )}
+                    <div className='flex items-center'>
+                      {favoriteRooms.some(
+                        (favRoom) => favRoom.id === room.id
+                      ) ? (
+                        <Heart className='fill-rose-500 text-rose-500 size-4' />
+                      ) : (
+                        <div className='size-4' />
+                      )}
+                      {lastVisited?.id === room.id && (
+                        <span className='ml-2 text-sm text-gray-500'>
+                          <Eye className=' size-4' />
+                        </span>
+                      )}
                     </div>
-                  </td>
-                )}
+                  </div>
+                </td>
               </tr>
             ))}
           </tbody>

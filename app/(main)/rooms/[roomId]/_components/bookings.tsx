@@ -1,3 +1,5 @@
+"use client";
+
 import { useAuth } from "@clerk/nextjs";
 import { Booking } from "@prisma/client";
 import axios from "axios";
