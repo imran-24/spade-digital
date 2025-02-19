@@ -14,7 +14,11 @@ const RoomPage = async ({ params }: RoomPageProps) => {
       id: params.roomId
     },
     include:{
-      bookings: true
+      bookings: {
+        orderBy:{
+          createdAt: "desc"
+        }
+      }
     }
   })
   
