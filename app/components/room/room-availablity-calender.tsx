@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import { format, startOfWeek } from "date-fns";
+// import { startOfWeek } from "date-fns";
 
 type Booking = {
   startTime: string;
@@ -18,7 +18,7 @@ const dummyBookings: Booking[] = [
 
 const RoomAvailabilityCalendar: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
-  const weekStart = startOfWeek(selectedDate, { weekStartsOn: 1 }); // Start from Monday
+  // const weekStart = startOfWeek(selectedDate, { weekStartsOn: 1 }); // Start from Monday
 
   const isBooked = (date: Date) => {
     return dummyBookings.some(
