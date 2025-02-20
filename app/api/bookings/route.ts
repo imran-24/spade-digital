@@ -18,6 +18,28 @@ export async function POST(req: NextRequest) {
         );
       }
 
+      const existingRoom = await prisma.room.findFirst({
+        where:{
+          id: roomId
+        },
+        include:{
+          bookings: true
+        }
+      })
+
+      if(!existingRoom) return NextResponse.json(
+        { error: "Room not found" },
+        { status: 400 }
+      );
+
+      if(existingRoom.capacity === existingRoom.bookings.length) {
+
+        return NextResponse.json(
+          { error: "Room is fully booked" },
+          { status: 400 }
+        );
+      }
+      
       // Check for existing bookings with overlapping time
       const existingTimeConflict = await prisma.booking.findFirst({
         where: {

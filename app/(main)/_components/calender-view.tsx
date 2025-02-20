@@ -1,33 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { RoomWithBooking } from "../(routes)/rooms/[roomId]/_components/room-client";
 import axios from "axios";
-import "react-date-range/dist/styles.css"; // main style file
-import "react-date-range/dist/theme/default.css"; // theme css file
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
 import { Calendar } from "react-date-range";
 import { generateSlots } from "@/lib/utils";
 import Spinner from "@/app/components/spinner";
 import AvailableRoom from "./available-room";
-import { Room } from "@prisma/client";
 
 const CalenderView = () => {
-  const [favoriteRooms, setFavoriteRooms] = useState<Room[]>([]);
-  const [lastVisited, setLastVisited] = useState<Room | null>(null);
-
-  useEffect(() => {
-    const storedFavorites = JSON.parse(
-      localStorage.getItem("favoriteRooms") || "[]"
-    );
-    const storedLastVisited = JSON.parse(
-      localStorage.getItem("lastRoom") || "null"
-    );
-    setFavoriteRooms(storedFavorites);
-    setLastVisited(storedLastVisited);
-  }, []);
-
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  //   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
   const [availableRooms, setAvailableRooms] = useState<RoomWithBooking[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -35,8 +19,7 @@ const CalenderView = () => {
     try {
       setAvailableRooms([]);
       setLoading(true);
-      const response = await axios.get("/api/rooms");
-      const rooms = response.data;
+      const { data: rooms } = await axios.get("/api/rooms");
 
       const availableRooms = rooms.filter((room: RoomWithBooking) => {
         if (room.capacity <= room.bookings.length) return false;
@@ -46,10 +29,7 @@ const CalenderView = () => {
             new Date(booking.startTime).toDateString() === date.toDateString()
         );
 
-        const now = new Date();
-
-        const totalSlots = generateSlots(now);
-
+        const totalSlots = generateSlots(date);
         const bookedSlots = bookingsOnDate.map((booking) => {
           const time = new Date(booking.startTime);
           return `${time.getHours()}:${
@@ -59,34 +39,33 @@ const CalenderView = () => {
 
         return totalSlots.some((slot) => !bookedSlots.includes(slot));
       });
-      setLoading(false);
+
+      setAvailableRooms(availableRooms);
       return availableRooms;
     } catch (error) {
-      setLoading(false);
       console.error("Error checking availability:", error);
       return [];
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handleDateChange = async (date: Date | null) => {
+  const handleDateChange = async (date: Date) => {
     setSelectedDate(date);
-    if (date) {
-      const rooms = await checkAvailability(date);
-      if (rooms.length) setAvailableRooms(rooms);
-    }
-    // setSelectedSlot(null); // Reset slot selection on date change
+    const rooms = await checkAvailability(date);
+    if (rooms.length) setAvailableRooms(rooms);
   };
 
   return (
     <div className='w-full flex flex-col md:flex-row gap-4 relative'>
-      <div className='w-full md:flex-1 '>
+      <div className='w-full md:flex-1'>
         <Calendar
           date={selectedDate || new Date()}
-          onChange={(date: Date) => handleDateChange(date)}
+          onChange={handleDateChange}
           className='custom-calendar w-full'
           minDate={new Date()}
-          maxDate={new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)} // 30 days from now
-          color='#4F46E5' // indigo color
+          maxDate={new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)}
+          color='#4F46E5'
         />
         <style jsx global>{`
           .custom-calendar {
@@ -104,20 +83,18 @@ const CalenderView = () => {
           }
         `}</style>
       </div>
-      <div className='md:flex-1 flex flex-col gap-4 overflow-y-auto'>
+      <div className='md:flex-1 flex flex-col gap-4'>
+        {loading && <div className="flex-1 w-full h-full flex items-center justify-center"><Spinner /></div>}
         {availableRooms.map((room) => (
           <div key={room.id} className='flex flex-row items-center gap-2'>
             <AvailableRoom
               room={room}
               selectedDate={selectedDate}
-              isFavorite={
-                !!favoriteRooms.some((favRoom) => favRoom.id === room.id)
-              }
-              last={lastVisited?.id === room.id}
+              last={room.id === (JSON.parse(localStorage.getItem("lastRoom") || "null")?.id)}
             />
           </div>
         ))}
-        {loading && <Spinner />}
+        {(!availableRooms.length && !loading && selectedDate) &&  <p>No slots available</p>}
       </div>
     </div>
   );

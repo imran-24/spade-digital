@@ -30,7 +30,7 @@ const DateSlotPicker = ({
   date,
   bookings,
 }: DateSlotPickerProps) => {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(date || null);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(date || new Date());
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
   const [allSlots, setAllSlots] = useState<string[]>([]);
   const [bookedSlots, setBookedSlots] = useState({});
@@ -43,7 +43,6 @@ const DateSlotPicker = ({
     }
   }, [selectedDate, bookings]);
 
-  console.log(selectedSlot);
   useEffect(() => {
     const date = getSelectedDateTime();
     if (date && setStartDate) {

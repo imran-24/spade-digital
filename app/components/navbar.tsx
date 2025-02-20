@@ -19,8 +19,8 @@ const Navbar = () => {
   const isOpen = modalStore.type === "createRoom";
 
   return (
-    <div className='px-6 bg-white sticky top-0 z-10 '>
-      <div className='flex items-center justify-between h-20 '>
+    <div className='p-6 bg-white sticky top-0 z-10 space-y-2'>
+      <div className='flex items-center justify-between  '>
         <Link href={"/"} className='text-xl'>
           Meeting Room Booking System
         </Link>
@@ -40,9 +40,7 @@ const Navbar = () => {
             </div>
           )}
           <div className='flex items-center space-x-4'>
-            {/* <Link href={"/favorites"}>
-            <Heart className='fill-rose-500 hover:fill-rose-700 transition-colors ease-in-out  size-8 text-white' />
-          </Link> */}
+
             <UserButton />
           </div>
         </ClerkLoaded>
