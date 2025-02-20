@@ -3,9 +3,9 @@
 import React, { useEffect, useState } from "react";
 import { Booking, Room } from "@prisma/client";
 import BookingButton from "./booking-button";
-import Bookings from "./bookings";
 import Link from "next/link";
 import { Heart } from "lucide-react";
+import BookingTable from "@/app/components/tables/booking-table";
 
 export type RoomWithBooking = Room & {
   bookings: Booking[];
@@ -20,7 +20,7 @@ const RoomClient = ({ room }: RoomClientProps) => {
 
   useEffect(() => {
     const favoriteRoom = localStorage.getItem("favoriteRoom");
-    localStorage.setItem('lastRoom', JSON.stringify(room));
+    localStorage.setItem("lastRoom", JSON.stringify(room));
     if (favoriteRoom) {
       const parsedRoom = JSON.parse(favoriteRoom);
       setIsFavorite(parsedRoom.id === room.id);
@@ -28,22 +28,32 @@ const RoomClient = ({ room }: RoomClientProps) => {
   }, [room.id]);
 
   const unFavorite = (room: RoomWithBooking) => {
-    const favoriteRooms = JSON.parse(localStorage.getItem("favoriteRooms") || "[]");
-    const updatedRooms = favoriteRooms.filter((favRoom: RoomWithBooking) => favRoom.id !== room.id);
+    const favoriteRooms = JSON.parse(
+      localStorage.getItem("favoriteRooms") || "[]"
+    );
+    const updatedRooms = favoriteRooms.filter(
+      (favRoom: RoomWithBooking) => favRoom.id !== room.id
+    );
     localStorage.setItem("favoriteRooms", JSON.stringify(updatedRooms));
     setIsFavorite(false);
   };
 
   const makeFavorite = (room: RoomWithBooking) => {
-    const favoriteRooms = JSON.parse(localStorage.getItem("favoriteRooms") || "[]");
+    const favoriteRooms = JSON.parse(
+      localStorage.getItem("favoriteRooms") || "[]"
+    );
     favoriteRooms.push(room);
     localStorage.setItem("favoriteRooms", JSON.stringify(favoriteRooms));
     setIsFavorite(true);
   };
 
   useEffect(() => {
-    const favoriteRooms = JSON.parse(localStorage.getItem("favoriteRooms") || "[]");
-    setIsFavorite(favoriteRooms.some((favRoom: RoomWithBooking) => favRoom.id === room.id));
+    const favoriteRooms = JSON.parse(
+      localStorage.getItem("favoriteRooms") || "[]"
+    );
+    setIsFavorite(
+      favoriteRooms.some((favRoom: RoomWithBooking) => favRoom.id === room.id)
+    );
   }, [room.id]);
 
   return (
@@ -80,7 +90,7 @@ const RoomClient = ({ room }: RoomClientProps) => {
         </div>
       </div>
       {!!room.bookings.length ? (
-        <Bookings data={room.bookings} />
+        <BookingTable data={room.bookings} />
       ) : (
         <p className='px-1 text-neutral-500 text-sm'>No booking yet</p>
       )}

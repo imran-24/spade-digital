@@ -10,23 +10,23 @@ interface RoomPageProps {
 
 const RoomPage = async ({ params }: RoomPageProps) => {
   const room = await prisma.room.findUnique({
-    where:{
-      id: params.roomId
+    where: {
+      id: params.roomId,
     },
-    include:{
+    include: {
       bookings: {
-        orderBy:{
-          createdAt: "desc"
-        }
-      }
-    }
-  })
-  
+        orderBy: {
+          createdAt: "desc",
+        },
+      },
+    },
+  });
+
   if (!room) return;
 
   return (
-    <div className="p-6 h-full">
-      <RoomClient room={room}  />
+    <div className='p-6 h-full'>
+      <RoomClient room={room} />
     </div>
   );
 };

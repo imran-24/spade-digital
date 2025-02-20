@@ -1,12 +1,14 @@
 "use client";
-import React from 'react'
 
-const Error = () => {
+import React from 'react'
+import Spinner from '../components/spinner';
+
+const Loading = () => {
   return (
     <div className='mx-auto h-full flex items-center justify-center'>
-        <p className='text-sm font-medium'>Error - Something went wrong</p>
+      <Spinner />
     </div>
   )
 }
 
-export default Error
+export default Loading

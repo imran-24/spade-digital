@@ -57,8 +57,7 @@ const BookingFrom = ({ roomId, room }: BooingFormProps) => {
   };
 
   const uploadImage = async (file: File) => {
-
-    console.log(file)
+    console.log(file);
     const fileRef = ref(storage, `/rooms/${roomId}/bookings`);
     // Upload the file
     await uploadBytes(fileRef, file);
@@ -68,31 +67,6 @@ const BookingFrom = ({ roomId, room }: BooingFormProps) => {
     console.log(downloadURL);
     setValue("photoUrl", downloadURL);
   };
-
-  // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-
-  //   if (!user) return window.alert("You need to login first");
-
-  //   const data = {
-  //     name,
-  //     photoUrl,
-  //   };
-
-  //   try {
-  //     if (buffer) uploadImage(buffer!);
-  //     await axios.patch(`${baseurl}/users/${profile.id}`, data, {
-  //       headers: { authtoken: token },
-  //     });
-  //     router.refresh(); 
-  //   } catch (error: unknown) {
-  //     if (error instanceof AxiosError) {
-  //       window.alert(error.response?.data.error);
-  //       console.log(error.response?.data.error);
-  //     }
-  //   }
-    
-  // };
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
@@ -120,7 +94,7 @@ const BookingFrom = ({ roomId, room }: BooingFormProps) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className='flex flex-col gap-3 py-3'>
+      <div className='flex flex-col gap-4 py-3'>
         <input
           {...register("title")}
           placeholder='Title'

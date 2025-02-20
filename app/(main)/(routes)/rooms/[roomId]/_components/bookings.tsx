@@ -1,5 +1,6 @@
 "use client";
 
+import Pagination from "@/app/components/pagination";
 import { useAuth } from "@clerk/nextjs";
 import { Booking } from "@prisma/client";
 import axios from "axios";
@@ -82,7 +83,7 @@ const Bookings = ({ data }: { data: Booking[] }) => {
         </table>
       </div>
 
-      <div className='flex justify-center gap-2 p-4'>
+      {/* <div className='flex justify-center gap-2 p-4'>
         <button
           onClick={() => setPage((p) => Math.max(1, p - 1))}
           disabled={page === 1}
@@ -108,7 +109,8 @@ const Bookings = ({ data }: { data: Booking[] }) => {
         >
           Next
         </button>
-      </div>
+      </div> */}
+      <Pagination currentPage={page} setCurrentPage={setPage} totalPages={totalPages} />
     </div>
   );
 };

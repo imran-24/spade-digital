@@ -1,6 +1,7 @@
-import { Loader2, X } from "lucide-react";
+import { X } from "lucide-react";
 import React, { useCallback, useEffect, useState } from "react";
 import Button from "../Button";
+import Spinner from "../spinner";
 
 interface ModalProps {
   disabled?: boolean;
@@ -73,7 +74,7 @@ const Modal: React.FC<ModalProps> = ({
               <div className='w-full flex items-center gap-2'>
                 {disabled ? (
                   <div className="px-4">
-                    <Loader2 className='text-gray-500 animate-spin' />
+                    <Spinner />
                   </div>
                 ) : (
                   <Button
