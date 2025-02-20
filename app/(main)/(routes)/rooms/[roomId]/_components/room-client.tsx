@@ -22,6 +22,9 @@ const RoomClient = ({ room }: RoomClientProps) => {
     const favoriteRooms = JSON.parse(
       localStorage.getItem("favoriteRooms") || "[]"
     );
+    
+    localStorage.setItem("lastRoom", JSON.stringify(room));
+
     setIsFavorite(
       favoriteRooms.some((favRoom: RoomWithBooking) => favRoom.id === room.id)
     );
