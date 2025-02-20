@@ -1,7 +1,7 @@
 "use client";
 
 import { useModalStore } from "@/hooks/use-modal-store";
-import { ClerkLoaded, ClerkLoading, useAuth, UserButton } from "@clerk/nextjs";
+import { ClerkLoaded, ClerkLoading, useAuth, UserButton, useUser } from "@clerk/nextjs";
 import React from "react";
 import Button from "./Button";
 import Link from "next/link";
@@ -11,8 +11,8 @@ import { usePathname } from "next/navigation";
 const isAdmin = process.env.NEXT_PUBLIC_IS_ADMIN;
 
 const Navbar = () => {
+  const {user} = useUser();
   const pathname = usePathname()
-  console.log(pathname)
   const { orgRole } = useAuth();
   const modalStore = useModalStore();
 
@@ -45,7 +45,7 @@ const Navbar = () => {
           </div>
         </ClerkLoaded>
       </div>
-      <div className="flex items-center gap-2">
+      {user && <div className="flex items-center gap-2">
         <Link href={`/rooms`} className={`block text-text-base  hover:bg-neutral-200 transition-all ease-in-out duration-200  p-1 rounded-lg ${pathname === '/rooms' ? 'bg-neutral-200' : 'bg-neutral-100'}`}>
           All Rooms
         </Link>
@@ -55,7 +55,7 @@ const Navbar = () => {
         <Link href={`/favorites`} className={`block text-text-base  hover:bg-neutral-200 transition-all ease-in-out duration-200  p-1 rounded-lg ${pathname === '/favorites' ? 'bg-neutral-200' : 'bg-neutral-100'}`}>
           Favorites
         </Link>
-      </div>
+      </div>}
     </div>
   );
 };
