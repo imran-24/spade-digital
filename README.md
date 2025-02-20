@@ -64,7 +64,14 @@ This project is a meeting room booking system built with modern technologies.
 
 ## Screenshots
 
-![Dashboard Preview](https://via.placeholder.com/800x450?text=Dashboard+Preview)
+![Dashboard Preview]
+![Image](https://github.com/user-attachments/assets/40ee5869-903b-41d6-9c12-eec3a9e9acc5)
+
+![Image](https://github.com/user-attachments/assets/0c509a0a-3808-4bf7-a1ee-8431d028b73a)
+
+![Image](https://github.com/user-attachments/assets/4522a828-80ae-4bb0-8f66-5ad8bb47aa68)
+
+![Image](https://github.com/user-attachments/assets/67e29257-a950-4393-88ee-77fc18f93dbf)
 
 ## Project Structure
 ```
