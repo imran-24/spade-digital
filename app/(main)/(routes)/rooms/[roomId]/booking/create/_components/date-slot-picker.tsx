@@ -30,7 +30,9 @@ const DateSlotPicker = ({
   date,
   bookings,
 }: DateSlotPickerProps) => {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(date || new Date());
+  const [selectedDate, setSelectedDate] = useState<Date | null>(
+    date || new Date()
+  );
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
   const [allSlots, setAllSlots] = useState<string[]>([]);
   const [bookedSlots, setBookedSlots] = useState({});
@@ -84,7 +86,7 @@ const DateSlotPicker = ({
       <div className='flex flex-col lg:flex-row  gap-2 '>
         {/* <label className='block text-sm  text-gray-500'>Select Date</label> */}
         {!date && (
-          <div>
+          <div className="flex-1">
             <h2 className='block text-sm font-medium text-gray-700'>
               Choose Your Time
             </h2>
@@ -92,23 +94,28 @@ const DateSlotPicker = ({
               date={selectedDate || new Date()}
               onChange={(date: Date) => handleDateChange(date)}
               minDate={new Date()}
-              className='w-fit'
+              className='w-full custom-calendar'
               maxDate={new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)} // 30 days from now
               color='#4F46E5' // indigo color
             />
+            <style jsx global>{`
+              .custom-calendar {
+                width: 100% !important;
+                max-width: 100%;
+                font-size: 16px;
+                padding: 1rem;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+              }
+              .custom-calendar .rdrMonth {
+                width: 100% !important;
+              }
+              .custom-calendar .rdrCalendarWrapper {
+                width: 100% !important;
+              }
+            `}</style>
           </div>
         )}
 
-        {/* <DatePicker
-          selected={selectedDate}
-          onChange={handleDateChange}
-          minDate={new Date()}
-          required
-          className='w-full p-2 border border-gray-300 outline-none  rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 shadow-sm'
-          placeholderText='Pick a date'
-          dateFormat='MMMM d, yyyy'
-          calendarClassName='shadow-xl border-none'
-        /> */}
         {selectedDate && (
           <div className='space-y-10 flex-1'>
             <label className='block text-sm font-medium text-gray-700'>

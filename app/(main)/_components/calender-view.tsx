@@ -57,7 +57,7 @@ const CalenderView = () => {
   };
 
   return (
-    <div className='w-full flex flex-col md:flex-row gap-4 relative'>
+    <div className='w-full flex flex-col lg:flex-row gap-4 relative'>
       <div className='w-full md:flex-1'>
         <Calendar
           date={selectedDate || new Date()}

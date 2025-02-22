@@ -16,6 +16,8 @@ const Navbar = () => {
   const { orgRole } = useAuth();
   const modalStore = useModalStore();
 
+  console.log(orgRole);
+
   const isOpen = modalStore.type === "createRoom";
 
   return (
